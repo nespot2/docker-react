@@ -1,44 +1,46 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import faker from 'faker';
-import CommentDetail from './CommentDetail';
-import ApprovalCard from './ApprovalCard';
+import SeasonDisplay from './season/SeasonDisplay';
 
-const App = () => {
+class App extends React.Component {
 
-    return (
-        <div className="ui container comments">
+    constructor(props) {
+        super(props);
+        this.state = {
+            lat: null,
+            errorMessage: ''
+        };
 
-            <ApprovalCard>
-                <CommentDetail
-                    author="Sam"
-                    timeAgo="Today at 4:30PM"
-                    content="Nice blog post"
-                    avatar={faker.image.avatar()}
-                />
-            </ApprovalCard>
+        window.navigator.geolocation.getCurrentPosition(
+            //we called setState
+            (position) => {
+                this.setState({lat: position.coords.latitude})
+            },
+            (err) => {
+                this.setState({
+                    errorMessage: err.message
+                })
+            }
+        );
+    }
 
-            <CommentDetail
-                author="Sam"
-                timeAgo="Today at 4:30PM"
-                content="Nice blog post"
-                avatar={faker.image.avatar()}
-            />
-            <CommentDetail
-                author="Alex"
-                timeAgo="Today at 2:30PM"
-                content="I like the subject"
-                avatar={faker.image.avatar()}
-            />
-            <CommentDetail
-                author="Jane"
-                timeAgo="Yesterday at 1:30PM"
-                content="I like the writing"
-                avatar={faker.image.avatar()}
-            />
-        </div>
-    );
+    render() {
+        const errorMessage = this.state.errorMessage;
+        const lat = this.state.lat;
+
+        if(errorMessage){
+            return <div>ErrorMessage: {errorMessage}</div>
+        }
+
+        if(lat){
+            return <div>Latitude: {lat}</div>
+        }
+
+        return <div>loading</div>
+    }
 }
 
-ReactDOM.render(<App/>, document.getElementById('root'));
-
+ReactDOM.render(
+    <App/>,
+    document.querySelector('#root')
+);
