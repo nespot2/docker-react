@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {go,map} from './fxjs/fx';
 
 
 class App extends React.Component {
@@ -12,19 +11,17 @@ class App extends React.Component {
             errorMessage: ''
         };
 
-        window.navigator.geolocation.getCurrentPosition(
-            //we called setState
-            (position) => {
-                this.setState({lat: position.coords.latitude})
-            },
-            (err) => {
-                this.setState({
-                    errorMessage: err.message
-                })
-            }
-        );
     }
 
+    componentDidMount() {
+        window.navigator.geolocation.getCurrentPosition(
+            //we called setState
+            position => this.setState({lat: position.coords.latitude}),
+
+            err => this.setState({errorMessage: err.message})
+
+        );
+    }
 
     render() {
         const errorMessage = this.state.errorMessage;
