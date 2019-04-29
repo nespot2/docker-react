@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {go,map} from './functional/fx';
+import {go,map} from './fxjs/fx';
 
 
 class App extends React.Component {
@@ -23,14 +23,6 @@ class App extends React.Component {
                 })
             }
         );
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
     }
 
 
