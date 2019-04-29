@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SeasonDisplay from './season/SeasonDisplay';
+import {go,map} from './functional/fx';
+
 
 class App extends React.Component {
 
@@ -24,9 +25,20 @@ class App extends React.Component {
         );
     }
 
+    componentDidMount() {
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+    }
+
+
     render() {
         const errorMessage = this.state.errorMessage;
         const lat = this.state.lat;
+
+
 
         if(errorMessage){
             return <div>ErrorMessage: {errorMessage}</div>
